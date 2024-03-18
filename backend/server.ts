@@ -28,15 +28,14 @@ app.use(cors({
 
 //Socket.io
 const server = http.createServer(app)
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin:['http://localhost:3000'],
     methods:['GET','POST']
   }
 })
 
-export const ioConnection:any = () => { 
-    io.on('connection', (socket)=>{
+io.on('connection', (socket)=>{
     console.log("A User Connnected",socket.id)
 
     const userId = socket.handshake.query.userId
@@ -47,10 +46,8 @@ export const ioConnection:any = () => {
     socket.on('disconnect',()=>{
     console.log("This user disconnect", socket.id)
     })
-  }) 
-}
+}) 
 
-ioConnection()
 
 app.use("/api/auth", authRoutes)
 app.use("/api/messages", messageRoutes)

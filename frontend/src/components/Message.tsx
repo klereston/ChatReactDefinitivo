@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-//import {useSocketContext} from "../context/SocketContext"
+import {useSocketContext} from "../context/SocketContext"
 import toast from "react-hot-toast"
 
 const fetchMessages = async (user:string) => {
@@ -18,19 +18,14 @@ const fetchMessages = async (user:string) => {
 const Message = (props: {user: string}) => {
        const [loading, setLoading] = useState(false)
        const [msgs, setMsgs]:any = useState([])
-        //const {socket} = useSocketContext()
-
+       const {socket} = useSocketContext()
+       const user = props.user
+       console.log(user, loading)
        useEffect(()=>{
-        const user = props.user       
+               
         setLoading(true)
-        console.log(user, loading)
+        
 
-        // socket?.on("newMessage", (newMessage:any)=>{
-        //     console.log("Esta es el new menssage de socket: "+newMessage)
-        //     setMsgs([...msgs, newMessage])
-        // })
-
-        // return () => socket?.off("newMessage")
         const msgsArr = new Array()
 
         fetchMessages(user).then((data)=>{
@@ -43,7 +38,15 @@ const Message = (props: {user: string}) => {
            }).catch((error)=>toast.error("Error in get users msgs: " + error))
            
            setLoading(false)  
-       },[])//[socket, setMsgs, msgs])
+
+        socket?.on("newMessage", (newMessage:any)=>{
+            console.log("Esta es el new menssage de socket: "+newMessage)
+            setMsgs([...msgs, newMessage])
+        })
+
+        return () => socket?.off("newMessage")
+       
+       },[socket, setMsgs, msgs])
        
     return (
         <>

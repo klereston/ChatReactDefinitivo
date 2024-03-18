@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import { User } from "../models/user.model"
 import { SendMsg } from "../models/sendmsg.model"
 import { ReceivedMsg } from "../models/receivedmsg.model"
-import { ioConnection } from "../server"
+import { io } from "../server"
 
 
 export const sendMessage: any = async (req: any, res: any) => {
@@ -176,7 +176,7 @@ export const sendMessage: any = async (req: any, res: any) => {
                         //SOCKET IO, Send the message to other user here
                         // const receiverSocketId = getReceiverSocketId(userToSendMsg)
                         
-                        //ioConnection.to(m.sendMessageToUser.userToSend).emit("newMessage",m.sendMessageToUser.sendMessage)
+                        io.to(m.sendMessageToUser.userToSend).emit("newMessage",m.sendMessageToUser.sendMessage)
                         
 
                         res.status(201).json({m})
