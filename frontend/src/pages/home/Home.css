@@ -1,0 +1,41 @@
+.home{
+    padding: 10px;
+    display: block;
+    align-items: start;
+    justify-content: center;
+    height: 60rem;
+    width: 30rem;
+    background: url("/bglogin.jpg");
+    background-repeat: no-repeat;
+    background-color: white;
+    background-position: center;
+    color: black;
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+  }
+
+.context{
+    background-color: transparent;
+    display: block;
+}
+
+.logout{
+    position: relative;
+    text-align: right;
+    color: orangered;
+}
+
+.chats{
+    position: relative;
+    height: 80%;
+    width: 100%;
+    background-color: transparent;
+    display: block;
+}
+.chat_with{
+    position: relative;
+    background-color: white;
+    margin: 10px;
+}
